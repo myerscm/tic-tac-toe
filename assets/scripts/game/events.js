@@ -1,6 +1,6 @@
-// const api = require('./api')
-// const getFormFields = require('../../../lib/get-form-fields')
-// const ui = require('./ui')
+const api = require('./api')
+const getFormFields = require('../../../lib/get-form-fields')
+const ui = require('./ui')
 
 const player1 = 'X'
 const player2 = 'O'
@@ -8,12 +8,23 @@ let board = ['', '', '', '', '', '', '', '', '']
 let turn = ''
 const newGame = function (event) {
   event.preventDefault()
+  $('#newgamemsg').html('New Game Started!')
+  $('#newgamemsg').css('background-color', 'pink')
+  setTimeout(() => {
+    $('#newgamemsg').html('')
+  }, 3000
+  )
   $('.game-board').show()
   $('.box').html('')
   board = ['', '', '', '', '', '', '', '', '']
   turn = player2
   $('#message').html('Player X, Begin!')
   $('#message').css('background-color', 'white')
+}
+const getGames = function (event) {
+  event.preventDefault()
+  api.index()
+    .then(ui.onGetGamesSuccess)
 }
 const setArray = function () {
   board[0] = $('#box-0').text()
@@ -47,6 +58,8 @@ const winCondition = function () {
   (board[0] === 'X' && board[0] === board[4] && board[0] === board[8]) ||
   (board[2] === 'X' && board[2] === board[4] && board[2] === board[6])) {
     console.log('X wins')
+    api.createGame()
+      .then(ui.onCreateGame)
     $('#message').html('Player X wins!')
     $('#message').css('background-color', 'green')
     $('.game-board').hide()
@@ -60,6 +73,8 @@ const winCondition = function () {
 (board[0] === 'O' && board[0] === board[4] && board[0] === board[8]) ||
 (board[2] === 'O' && board[2] === board[4] && board[2] === board[6])) {
     console.log('O wins')
+    api.createGame()
+      .then(ui.onCreateGame)
     $('#message').html('Player O wins!')
     $('#message').css('background-color', 'blue')
     $('.game-board').hide()
@@ -68,6 +83,8 @@ const winCondition = function () {
     board[3] !== '' && board[4] !== '' && board[5] !== '' && board[6] !== '' &&
     board[7] !== '' && board[8] !== '')) {
     console.log('Its a draw')
+    api.createGame()
+      .then(ui.onCreateGame)
     $('#message').html('Its a draw!')
     $('#message').css('background-color', 'purple')
     $('.game-board').hide()
@@ -96,6 +113,7 @@ const turnSwitch = function (e) {
 
 const addHandlers = function () {
   $('#restart').on('click', newGame)
+  $('#allgames').on('click', getGames)
   $('.box').on('click', function (event) {
     event.preventDefault()
     turnSwitch(event)

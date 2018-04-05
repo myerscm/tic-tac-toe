@@ -20,6 +20,7 @@ const signInSuccess = function (data) {
   $('#togglesi').addClass('hidden')
   $('#togglecp').removeClass('hidden')
   $('#toggleso').removeClass('hidden')
+  $('#apibuttons').removeClass('hidden')
   console.log(data)
   store.user = data.user
 }

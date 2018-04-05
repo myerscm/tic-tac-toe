@@ -75,6 +75,11 @@
               </fieldset>
             </form>
           </div>
+          <div class="hidden" id="apibuttons">
+            <button type="button" name="button" id="allgames">Get all games</button>
+            <button type="button" name="button" id="showgame">Get game by ID</button>
+          </div>
+          <div id="usercontent"></div>
         </div>
       </div>
       </div>
@@ -86,6 +91,8 @@
   </section>
   <div>
   <h2 id="message">Player X, Begin!</h2>
+  <h2 id="newgamemsg"></h2>
+  <h2 id="apimsg"></h2>
   </div>
   <div class="game-board">
     <div data-space='0' class="box" id="box-0"></div>
