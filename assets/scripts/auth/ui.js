@@ -21,6 +21,10 @@ const signInSuccess = function (data) {
   $('#togglecp').removeClass('hidden')
   $('#toggleso').removeClass('hidden')
   $('#apibuttons').removeClass('hidden')
+  $('#boardmsg').removeClass('hidden')
+  $('#createbtn').removeClass('hidden')
+  $('#modalbtn').text('User options')
+  $('form').trigger('reset')
   console.log(data)
   store.user = data.user
 }
@@ -48,6 +52,7 @@ const changePasswordSuccess = function () {
     $('#authmessage').html('')
   }, 3000
   )
+  $('form').trigger('reset')
 }
 const changePasswordFailure = function () {
   $('#authmessage').html('Failure changing password')
@@ -68,6 +73,12 @@ const signOutSuccess = function () {
   $('#togglesi').removeClass('hidden')
   $('#togglecp').addClass('hidden')
   $('#toggleso').addClass('hidden')
+  $('#apibuttons').addClass('hidden')
+  $('.game-board').addClass('hidden')
+  $('#boardmsg').addClass('hidden')
+  $('#createbtn').addClass('hidden')
+  $('#usercontent').addClass('hidden')
+  $('#modalbtn').text('Sign in to play!')
   store.user = null
 }
 const signOutFailure = function () {

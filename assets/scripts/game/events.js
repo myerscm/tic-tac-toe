@@ -6,6 +6,19 @@ const player1 = 'X'
 const player2 = 'O'
 let board = ['', '', '', '', '', '', '', '', '']
 let turn = ''
+let isOver = false
+const dataPatch = function (data) {
+  // event.preventDefault()
+  // const data = event.target.attr('data-space')
+  // const turn = event.target.innerText
+  const isOver = winCondition()
+  console.log('patch data is', data)
+  console.log('patch value is', turn)
+  console.log('game over is', isOver)
+  api.updateGame(data, turn, isOver)
+    .then(ui.onPatchSuccess)
+    .catch()
+}
 const newGame = function (event) {
   event.preventDefault()
   $('#newgamemsg').html('New Game Started!')
@@ -14,7 +27,9 @@ const newGame = function (event) {
     $('#newgamemsg').html('')
   }, 3000
   )
-  $('.game-board').show()
+  api.createGame()
+    .then(ui.onCreateGame)
+  $('.game-board').removeClass('hidden')
   $('.box').html('')
   board = ['', '', '', '', '', '', '', '', '']
   turn = player2
@@ -23,8 +38,13 @@ const newGame = function (event) {
 }
 const getGames = function (event) {
   event.preventDefault()
+  $('#usercontent').removeClass('hidden')
   api.index()
     .then(ui.onGetGamesSuccess)
+}
+const hideGames = function () {
+  event.preventDefault()
+  $('#usercontent').addClass('hidden')
 }
 const setArray = function () {
   board[0] = $('#box-0').text()
@@ -36,7 +56,6 @@ const setArray = function () {
   board[6] = $('#box-6').text()
   board[7] = $('#box-7').text()
   board[8] = $('#box-8').text()
-  console.log(board)
 }
 const winCondition = function () {
   board[0] = $('#box-0').text()
@@ -58,12 +77,11 @@ const winCondition = function () {
   (board[0] === 'X' && board[0] === board[4] && board[0] === board[8]) ||
   (board[2] === 'X' && board[2] === board[4] && board[2] === board[6])) {
     console.log('X wins')
-    api.createGame()
-      .then(ui.onCreateGame)
     $('#message').html('Player X wins!')
     $('#message').css('background-color', 'green')
-    $('.game-board').hide()
-    return true
+    $('.game-board').addClass('hidden')
+    isOver = true
+    return isOver
   } else if ((board[0] === 'O' && board[0] === board[1] && board[1] === board[2]) ||
 (board[3] === 'O' && board[3] === board[4] && board[3] === board[5]) ||
 (board[6] === 'O' && board[6] === board[7] && board[6] === board[8]) ||
@@ -73,21 +91,20 @@ const winCondition = function () {
 (board[0] === 'O' && board[0] === board[4] && board[0] === board[8]) ||
 (board[2] === 'O' && board[2] === board[4] && board[2] === board[6])) {
     console.log('O wins')
-    api.createGame()
-      .then(ui.onCreateGame)
     $('#message').html('Player O wins!')
     $('#message').css('background-color', 'blue')
-    $('.game-board').hide()
-    return true
+    $('.game-board').addClass('hidden')
+    isOver = true
+    return isOver
   } else if ((board[0] !== '' && board[1] !== '' && board[2] !== '' &&
     board[3] !== '' && board[4] !== '' && board[5] !== '' && board[6] !== '' &&
     board[7] !== '' && board[8] !== '')) {
     console.log('Its a draw')
-    api.createGame()
-      .then(ui.onCreateGame)
     $('#message').html('Its a draw!')
     $('#message').css('background-color', 'purple')
-    $('.game-board').hide()
+    $('.game-board').addClass('hidden')
+    isOver = true
+    return isOver
   }
 }
 const turnSwitch = function (e) {
@@ -114,11 +131,13 @@ const turnSwitch = function (e) {
 const addHandlers = function () {
   $('#restart').on('click', newGame)
   $('#allgames').on('click', getGames)
+  $('#hidegames').on('click', hideGames)
   $('.box').on('click', function (event) {
     event.preventDefault()
     turnSwitch(event)
     setArray()
     winCondition()
+    dataPatch(event.target.getAttribute('data-space'))
   })
 }
 
@@ -129,5 +148,6 @@ module.exports = {
   board,
   setArray,
   newGame,
-  winCondition
+  winCondition,
+  dataPatch
 }

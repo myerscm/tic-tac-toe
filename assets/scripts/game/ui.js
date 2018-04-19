@@ -11,6 +11,10 @@ const onCreateGame = function (data) {
   store.game = data.game
   console.log(store.game)
 }
+const onPatchSuccess = function (data) {
+  console.log('patch is working', data)
+  store.game = data.game
+}
 const onGetGamesSuccess = function (data) {
   console.table(data.games)
 
@@ -33,5 +37,6 @@ const onGetGamesSuccess = function (data) {
 
 module.exports = {
   onCreateGame,
-  onGetGamesSuccess
+  onGetGamesSuccess,
+  onPatchSuccess
 }

@@ -10,20 +10,21 @@ body {
 
 .game-board {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
-  grid-template-rows: 200px 200px 200px;
-  margin-left: 0 auto;
-  padding-bottom: 50px;
-  padding-left: 32%;
-  padding-right: 32%;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: 150px 150px 150px;
+  margin: 0 auto;
+  // padding-bottom: 50px;
+  // padding-left: 32%;
+  // padding-right: 32%;
   padding-top: 20px;
+  max-width: 450px;
 }
 
 .box {
   border: 1px solid $black;
   justify-content: center;
-  padding: 95px;
   text-align: center;
+  font-size: 110px;
   }
 
 .hidden {

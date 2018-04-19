@@ -21,7 +21,7 @@
   <!-- Large modal -->
   <!-- Large modal -->
   <section>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Sign up/Sign in!</button>
+<button type="button" class="btn btn-primary" id="modalbtn" data-toggle="modal" data-target=".bs-example-modal-lg">Sign in to play!</button>
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
@@ -77,9 +77,9 @@
           </div>
           <div class="hidden" id="apibuttons">
             <button type="button" name="button" id="allgames">Get all games</button>
-            <button type="button" name="button" id="showgame">Get game by ID</button>
+            <button type="button" name="button" id="hidegames">Hide games</button>
           </div>
-          <div id="usercontent"></div>
+          <div class="hidden" id="usercontent"></div>
         </div>
       </div>
       </div>
@@ -89,12 +89,15 @@
 
     <!-- end of auth -->
   </section>
-  <div>
+  <div class="hidden" id="boardmsg">
   <h2 id="message">Player X, Begin!</h2>
   <h2 id="newgamemsg"></h2>
   <h2 id="apimsg"></h2>
   </div>
-  <div class="game-board">
+  <div class="restart hidden" id="createbtn">
+  <button type="button" name="button" id="restart">New Game</button>
+  </div>
+  <div class="game-board hidden">
     <div data-space='0' class="box" id="box-0"></div>
     <div data-space='1' class="box" id="box-1"></div>
     <div data-space='2' class="box" id="box-2"></div>
@@ -105,10 +108,6 @@
     <div data-space='7' class="box" id="box-7"></div>
     <div data-space='8' class="box" id="box-8"></div>
   </div>
-
-<div class="restart">
-<button type="button" name="button" id="restart">New Game</button>
-</div>
 </body>
 
 </html>
