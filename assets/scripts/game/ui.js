@@ -12,22 +12,19 @@ const onCreateGame = function (data) {
   console.log(store.game)
 }
 const onPatchSuccess = function (data) {
-  console.log('patch is working', data)
   store.game = data.game
 }
 const onGetGamesSuccess = function (data) {
-  console.table(data.games)
-
   // clear content div, in case something was already there
   $('#usercontent').html('')
 
   data.games.forEach(game => {
     const gameHTML = (`
-      <h4>id: ${game.id}</h4>
-      <p>cells: ${game.cells}</p>
-      <p>over: ${game.over}</p>
-      <p>playerXid: ${game.player_x.id}</p>
-      <p>playerXemail: ${game.player_x.email}</p>
+      <h4>Game Number: ${game.id}</h4>
+      <p>Cells: ${game.cells}</p>
+      <p>Over: ${game.over}</p>
+      <p>Player X ID: ${game.player_x.id}</p>
+      <p>Player X Email: ${game.player_x.email}</p>
       <br>
     `)
 

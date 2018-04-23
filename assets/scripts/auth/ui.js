@@ -25,7 +25,6 @@ const signInSuccess = function (data) {
   $('#createbtn').removeClass('hidden')
   $('#modalbtn').text('User options')
   $('form').trigger('reset')
-  console.log(data)
   store.user = data.user
 }
 

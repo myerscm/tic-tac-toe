@@ -23,7 +23,6 @@ const updateGame = (data, turn, isOver) => {
 }
 
 const createGame = (data) => {
-  console.log('create is working')
   return $.ajax({
     url: config.apiUrl + '/games',
     method: 'POST',
@@ -35,7 +34,6 @@ const createGame = (data) => {
   })
 }
 const index = function (data) {
-  console.log('index is working')
   return $.ajax({
     url: config.apiUrl + '/games',
     method: 'GET',

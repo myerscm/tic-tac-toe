@@ -12,9 +12,6 @@ const dataPatch = function (data) {
   // const data = event.target.attr('data-space')
   // const turn = event.target.innerText
   const isOver = winCondition()
-  console.log('patch data is', data)
-  console.log('patch value is', turn)
-  console.log('game over is', isOver)
   api.updateGame(data, turn, isOver)
     .then(ui.onPatchSuccess)
     .catch()
@@ -76,7 +73,6 @@ const winCondition = function () {
   (board[2] === 'X' && board[2] === board[5] && board[2] === board[8]) ||
   (board[0] === 'X' && board[0] === board[4] && board[0] === board[8]) ||
   (board[2] === 'X' && board[2] === board[4] && board[2] === board[6])) {
-    console.log('X wins')
     $('#message').html('Player X wins!')
     $('#message').css('background-color', 'green')
     $('.game-board').addClass('hidden')
@@ -90,7 +86,6 @@ const winCondition = function () {
 (board[2] === 'O' && board[2] === board[5] && board[2] === board[8]) ||
 (board[0] === 'O' && board[0] === board[4] && board[0] === board[8]) ||
 (board[2] === 'O' && board[2] === board[4] && board[2] === board[6])) {
-    console.log('O wins')
     $('#message').html('Player O wins!')
     $('#message').css('background-color', 'blue')
     $('.game-board').addClass('hidden')
@@ -99,7 +94,6 @@ const winCondition = function () {
   } else if ((board[0] !== '' && board[1] !== '' && board[2] !== '' &&
     board[3] !== '' && board[4] !== '' && board[5] !== '' && board[6] !== '' &&
     board[7] !== '' && board[8] !== '')) {
-    console.log('Its a draw')
     $('#message').html('Its a draw!')
     $('#message').css('background-color', 'purple')
     $('.game-board').addClass('hidden')
@@ -119,11 +113,13 @@ const turnSwitch = function (e) {
       $('#message').css('background-color', 'white')
     }
     e.target.innerHTML = turn
-    console.log(turn)
   } else {
-    console.log('Not a valid space')
     $('#message').html('This space is taken!')
     $('#message').css('background-color', 'red')
+    setTimeout(() => {
+      $('#message').html('')
+    }, 3000
+    )
   }
   return turn
 }
